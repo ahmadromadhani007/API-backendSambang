@@ -1,33 +1,35 @@
 module.exports = (sequelize, DataTypes) => {
-  const Pengurus = sequelize.define(
-    "Pengurus",
+  const wali = sequelize.define(
+    "wali",
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
-      },
-      username: {
+      nik: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      password: {
+      no_mahrom: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      nama: {
+      nama_wali: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      foto: {
+      alamat: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      status: {
         type: DataTypes.STRING,
         allowNull: false,
       },
     },
     {
-      tableName: "pengurus",
+      tableName: "wali",
     }
   );
-  return Pengurus;
+  wali.associate = function (model) {
+    wali.belongsTo(model.reservasi, { foreignKey: "no_mahrom" });
+    wali.belongsTo(model.reservasi_wali, { foreignKey: "id" });
+  };
+  return wali;
 };

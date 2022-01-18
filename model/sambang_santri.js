@@ -31,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         jam_mulai:{
-            type: DataTypes.TIME,
+            type: DataTypes.STRING,
             allowNull: false
         },
         jam_akhir:{
-            type: DataTypes.TIME,
+            type: DataTypes.STRING,
             allowNull: false
         },
     }, {

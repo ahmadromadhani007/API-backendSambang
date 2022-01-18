@@ -1,46 +1,42 @@
 module.exports = {
-    "development": {
-      "username": "root",
-      "password": null,
-      "database": "db_sambang_santri",
-      "host": "127.0.0.1",
-      "dialect": "mysql",
-      "define": {
-        "charset": "utf8mb4",
-        "collate": "utf8mb4_unicode_ci",
-        "timestamps": false
-
-        },
-        "logging": false
+  development: {
+    username: "root",
+    password: null,
+    database: "sambang",
+    host: "127.0.0.1",
+    dialect: "mysql",
+    define: {
+      charset: "utf8mb4",
+      collate: "utf8mb4_unicode_ci",
+      timestamps: false,
     },
-    "test": {
-      "username": "root",
-      "password": null,
-      "database": "db_sambang_santri",
-      "host": "127.0.0.1",
-      "dialect": "mysql",
-      "define": {
-        "charset": "utf8mb4",
-        "collate": "utf8mb4_unicode_ci",
-        "timestamps": false
-
-        },
-        "logging": false
+    logging: false,
+  },
+  test: {
+    username: "root",
+    password: null,
+    database: "sambang",
+    host: "127.0.0.1",
+    dialect: "mysql",
+    define: {
+      charset: "utf8mb4",
+      collate: "utf8mb4_unicode_ci",
+      timestamps: false,
     },
-    "production": {
-        "username": "root",
-        "password": null,
-        "database": "db_sambang_santri",
-        "host": "127.0.0.1",
-        "dialect": "mysql",
-        "define": {
-          "charset": "utf8mb4",
-          "collate": "utf8mb4_unicode_ci",
-          "timestamps": false
-  
-          },
-        "logging": false
-    }
-  }
-
-  
+    logging: false,
+  },
+  production: {
+    username: "root",
+    password: null,
+    database: "sambang",
+    host: "127.0.0.1",
+    // host: ":8080",
+    dialect: "mysql",
+    define: {
+      charset: "utf8mb4",
+      collate: "utf8mb4_unicode_ci",
+      timestamps: false,
+    },
+    logging: false,
+  },
+};

@@ -1,12 +1,11 @@
-const { santri, wilayah, lembaga } = require("../model");
+const { application } = require("express");
+const { informasi } = require("../model");
 
 module.exports = {
   async tampil(req, res, next) {
     try {
-      await santri
-        .findAll({
-          include: [wilayah, lembaga],
-        })
+      await informasi
+        .findAll()
         .then((result) => {
           if (result.length > 0) {
             return res.status(200).json({
@@ -35,44 +34,8 @@ module.exports = {
   },
   async cari(req, res, next) {
     try {
-      await santri
-        .findAll({
-          include: [wilayah, lembaga],
-          where: {
-            no_mahrom: req.params.no_mahrom,
-          },
-        })
-        .then((result) => {
-          if (result != 0) {
-            return res.status(200).json({
-              success: 1,
-              data: result,
-            });
-          } else {
-            return res.status(400).json({
-              success: 0,
-              message: "tidak ditemukan...",
-            });
-          }
-        })
-        .catch((error) => {
-          return res.status(400).json({
-            success: 0,
-            message: error.message,
-          });
-        });
-    } catch (error) {
-      return res.status(400).json({
-        success: 0,
-        message: error.message,
-      });
-    }
-  },
-  async cariSantri(req, res, next) {
-    try {
-      await santri
+      await informasi
         .findOne({
-          include: [wilayah, lembaga],
           where: {
             id: req.params.id,
           },
@@ -103,14 +66,94 @@ module.exports = {
       });
     }
   },
+  async tanggal_mulai(req, res, next) {
+    try {
+      await informasi
+        .findAll({
+          where: {
+            tanggal_mulai: req.params.tanggal_mulai,
+          },
+        })
+        .then((result) => {
+          if (result != 0) {
+            return res.status(200).json({
+              success: 1,
+              data: result,
+            });
+          } else {
+            return res.status(400).json({
+              success: 0,
+              message: "tidak ditemukan...",
+            });
+          }
+        })
+        .catch((error) => {
+          return res.status(400).json({
+            success: 0,
+            message: error.message,
+          });
+        });
+    } catch (error) {
+      return res.status(400).json({
+        success: 0,
+        message: error.message,
+      });
+    }
+  },
+  async simpan(req, res, next) {
+    try {
+      const {
+        nama_informasi,
+        detail_informasi,
+        tanggal_mulai,
+        tanggal_akhir,
+        status,
+      } = req.body;
+      await informasi
+        .create({
+          nama_informasi,
+          detail_informasi,
+          tanggal_mulai,
+          tanggal_akhir,
+          status,
+        })
+        .then((result) => {
+          return res.status(201).json({
+            success: 1,
+            message: "Berhasil Tersimpan",
+            data: result,
+          });
+        })
+        .catch((error) => {
+          return res.status(400).json({
+            success: 0,
+            message: error.message,
+          });
+        });
+    } catch (error) {
+      return res.status(400).json({
+        success: 0,
+        message: error.message,
+      });
+    }
+  },
   async edit(req, res, next) {
     try {
-      const { status_santri, keterangan } = req.body;
-      await santri
+      const {
+        nama_informasi,
+        detail_informasi,
+        tanggal_mulai,
+        tanggal_akhir,
+        status,
+      } = req.body;
+      await informasi
         .update(
           {
-            status_santri,
-            keterangan,
+            nama_informasi,
+            detail_informasi,
+            tanggal_mulai,
+            tanggal_akhir,
+            status,
           },
           { where: { id: req.params.id } }
         )

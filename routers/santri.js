@@ -1,11 +1,10 @@
 const express = require("express");
+const santri = require("../controllers/santri");
 const router = express.Router();
 
-const santri = require("../controllers/santri");
-
 router.get("/santri", santri.tampil);
-router.get("/santri/:id_santri", santri.cari);
-router.post("/santri", santri.simpan);
-router.put("/santri/:id_santri", santri.edit);
+router.get("/santri/:no_mahrom", santri.cari);
+router.get("/santri/id/:id", santri.cariSantri);
+router.put("/santri/id/:id", santri.edit);
 
 module.exports = router;
