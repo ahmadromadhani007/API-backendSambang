@@ -4,10 +4,15 @@ const Validator = require("fastest-validator");
 const v = new Validator();
 
 module.exports = async (req, res) => {
-  const { username, password, nama, foto } = req.body;
+  const { username, password, role, nama, foto } = req.body;
   const schema = {
     username: "string|required",
     password: "string|required",
+    role: {
+      type: "string",
+      items: "string",
+      enum: ["sysadmin", "admin"]
+    },
     nama: "string|required",
     foto: "string|required",
   };
@@ -23,6 +28,7 @@ module.exports = async (req, res) => {
   await Pengurus.create({
     username,
     password: bcrypt.hashSync(password, 10),
+    role,
     nama,
     foto,
   })

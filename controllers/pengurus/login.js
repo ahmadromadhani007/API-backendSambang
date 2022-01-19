@@ -45,6 +45,7 @@ module.exports = async (req, res) => {
           jwt.sign({
             id: data.id,
             username: data.username,
+            role: data.role,
             nama: data.nama,
             foto: data.foto 
           }, JWT_SECRET_KEY, {expiresIn:JWT_TIME_EXPIRE}, (err, token) => {
@@ -58,6 +59,7 @@ module.exports = async (req, res) => {
               status: true,
               message: "Pengurus berhasil login",
               token,
+              role: data.role,
               nama: data.nama,
               foto: `${req.protocol}://${req.get('host')}/${data.foto}`
             })
