@@ -1,13 +1,10 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { Pengurus } = require("../../model");
 const Validator = require("fastest-validator");
 const v = new Validator();
-const {
-  JWT_SECRET_KEY,
-  JWT_TIME_EXPIRE
-} = process.env;
+const { JWT_SECRET_KEY, JWT_TIME_EXPIRE } = process.env;
 
 module.exports = async (req, res) => {
   const { username, password } = req.body;
@@ -42,28 +39,33 @@ module.exports = async (req, res) => {
       } else {
         if (pass) {
           //return res.json(data)
-          jwt.sign({
-            id: data.id,
-            username: data.username,
-            role: data.role,
-            nama: data.nama,
-            foto: data.foto 
-          }, JWT_SECRET_KEY, {expiresIn:JWT_TIME_EXPIRE}, (err, token) => {
-            if (err) {
-              return res.status(400).json({
-                status:false,
-                message: err.message
-              })
-            }
-            return res.json({
-              status: true,
-              message: "Pengurus berhasil login",
-              token,
+          jwt.sign(
+            {
+              id: data.id,
+              username: data.username,
               role: data.role,
               nama: data.nama,
-              foto: `${req.protocol}://${req.get('host')}/${data.foto}`
-            })
-          });
+              foto: data.foto,
+            },
+            JWT_SECRET_KEY,
+            { expiresIn: JWT_TIME_EXPIRE },
+            (err, token) => {
+              if (err) {
+                return res.status(400).json({
+                  status: false,
+                  message: err.message,
+                });
+              }
+              return res.json({
+                status: true,
+                message: "Pengurus berhasil login",
+                token,
+                role: data.role,
+                nama: data.nama,
+                foto: `${req.protocol}://${req.get("host")}/${data.foto}`,
+              });
+            }
+          );
         } else {
           return res.status(401).json({
             status: false,
