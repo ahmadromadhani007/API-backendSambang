@@ -33,7 +33,7 @@ module.exports = {
               include: [
                 {
                   model: santri,
-                  attributes: ["id", "nama", "no_mahrom"],
+                  attributes: ["id", "nama", "no_mahrom", "status"],
                   include: [
                     {
                       model: wilayah,
