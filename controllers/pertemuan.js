@@ -32,6 +32,40 @@ module.exports = {
       });
     }
   },
+  async cari(req, res, next) {
+    try {
+      await pertemuan
+        .findOne({
+          where: {
+            id: req.params.id,
+          },
+        })
+        .then((result) => {
+          if (result != 0) {
+            return res.status(200).json({
+              success: 1,
+              data: result,
+            });
+          } else {
+            return res.status(400).json({
+              success: 0,
+              message: "tidak ditemukan...",
+            });
+          }
+        })
+        .catch((error) => {
+          return res.status(400).json({
+            success: 0,
+            message: error.message,
+          });
+        });
+    } catch (error) {
+      return res.status(400).json({
+        success: 0,
+        message: error.message,
+      });
+    }
+  },
   async edit(req, res, next) {
     try {
       const { batas_sambang, batas_tamu, waktu } = req.body;
