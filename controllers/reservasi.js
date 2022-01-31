@@ -325,4 +325,38 @@ module.exports = {
       });
     }
   },
+  async mahrom(req, res, next) {
+    try {
+      await reservasi
+        .findAll({
+          where: {
+            no_mahrom: req.params.no_mahrom,
+          },
+        })
+        .then((result) => {
+          if (result != 0) {
+            return res.status(200).json({
+              success: 1,
+              data: result,
+            });
+          } else {
+            return res.status(400).json({
+              success: 0,
+              message: "tidak ditemukan...",
+            });
+          }
+        })
+        .catch((error) => {
+          return res.status(400).json({
+            success: 0,
+            message: error.message,
+          });
+        });
+    } catch (error) {
+      return res.status(400).json({
+        success: 0,
+        message: error.message,
+      });
+    }
+  },
 };
