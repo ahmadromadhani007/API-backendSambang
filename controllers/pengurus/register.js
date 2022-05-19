@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const { Pengurus } = require("../../model");
 const Validator = require("fastest-validator");
 const v = new Validator();
